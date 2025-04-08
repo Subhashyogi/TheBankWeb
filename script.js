@@ -1,5 +1,6 @@
 'use strict';
 
+// DOM elements
 const header = document.querySelector('.header');
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
@@ -11,6 +12,11 @@ const tabs = document.querySelectorAll(".operations__tab");
 const tabsContainer = document.querySelector(".operations__tab-container");
 const tabsContent = document.querySelectorAll(".operations__content");
 const nav = document.querySelector('.nav');
+const btnPin = document.querySelector('.btn-pin');
+const btnNext = document.querySelector('.btn-next');
+const firstName = document.querySelector('.first-name');
+const lastName = document.querySelector('.last-name');
+const pin = document.querySelector('.pin');
 
 const openModal = function (e) {
     e.preventDefault()
@@ -260,4 +266,53 @@ dotContainer.addEventListener('click', function (e) {
         activeDot(slide);
     }
 })
+
+const pinHandler = (e) => {
+    e.preventDefault();
+    const pass = Math.floor(Math.random() * 9000) + 1000;
+    pin.value = pass;
+}
+
+const ResetInp = function () {
+    pin.value = '';
+    firstName.value = '';
+    lastName.value = '';
+}
+
+const nextHandler = (e) => {
+    e.preventDefault();
+    
+    if(!firstName.value ||!lastName.value ||!pin.value) {
+        alert('Please fill all the fields');
+        return;
+    }
+
+    const formData = {
+        firstName: firstName.value,
+        lastName: lastName.value,
+        pin: pin.value,
+    }
+    
+    axios.post(`http://localhost:5000/user/create`, formData)
+                .then(
+                    (success) => {
+                        if (success.data.status === 1) {
+                            console.log('user added successfully');
+                            ResetInp()
+                            closeModal()
+                        }
+                        else {
+                            console.log('unable to add user');
+                        }
+                    }
+                ).catch(
+                    (error) => {
+                        console.log(error);
+                    }
+                );
+
+    
+}
+btnPin.addEventListener('click', pinHandler);
+btnNext.addEventListener('click', nextHandler)
 

@@ -22,7 +22,7 @@
             <a class="nav__link" href="#section--3">Testimonials</a>
           </li>
           <li class="nav__item">
-            <a class="nav__link nav__link--btn btn--show-modal" href="#"
+            <a class="nav__link nav__link--btn btn--show-modal" href=".header"
               >Open account</a
             >
           </li>
@@ -322,17 +322,22 @@
       </h2>
       <form class="modal__form">
         <label for="">First Name</label>
-        <input type="text" />
+        <input type="text" class="first-name" required/>
         <label for="">Last Name</label>
-        <input type="text" />
-        <label for="">Email Address</label>
-        <input type="email" />
-        <button class="btn">Next step &rarr;</button>
+        <input type="text" class="last-name" required/>
+        <label for="">Pin</label>
+        <input type="number" class="pin" required/>
+        <span class="btn-box">
+          <button class="btn btn-pin">Genrate Pin</button>
+        
+        <a href="https://thebank-app.netlify.app" target="_blank" class=" btn-link"><button class="btn btn-next">Next step &rarr;</button></a>
+        </span>
       </form>
     </div>
 
     <div class="overlay hidden"></div>
   </body>
 
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="script.js"></script>
 </html>

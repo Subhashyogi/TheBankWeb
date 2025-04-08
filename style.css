@@ -72,11 +72,26 @@ body {
   font-family: inherit;
   font-weight: 500;
   border: none;
-  padding: 1.25rem 4.5rem;
+  padding: 1.25rem 5.5rem;
   border-radius: 10rem;
   cursor: pointer;
   transition: all 0.3s;
 }
+
+
+.btn-next {
+  
+  padding: 0.25rem 6.5rem;
+}
+
+
+.btn-box {
+  display: flex;
+  width: 15rem;
+  align-items: center;
+  gap: 5rem;
+}
+
 
 .btn:hover {
   background-color: var(--color-primary-darker);
@@ -655,6 +670,7 @@ h4 {
   border: none;
   background: none;
 }
+
 
 .hidden {
   visibility: hidden;

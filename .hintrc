@@ -18,6 +18,12 @@
           "backdrop-filter"
         ]
       }
+    ],
+    "axe/keyboard": [
+      "default",
+      {
+        "nested-interactive": "off"
+      }
     ]
   }
 }
