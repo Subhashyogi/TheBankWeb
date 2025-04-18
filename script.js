@@ -267,11 +267,11 @@ dotContainer.addEventListener('click', function (e) {
     }
 })
 
-const pinHandler = (e) => {
-    e.preventDefault();
-    const pass = Math.floor(Math.random() * 9000) + 1000;
-    pin.value = pass;
-}
+// const pinHandler = (e) => {
+//     e.preventDefault();
+//     const pass = Math.floor(Math.random() * 9000) + 1000;
+//     pin.value = pass;
+// }
 
 const ResetInp = function () {
     pin.value = '';
@@ -292,7 +292,6 @@ const nextHandler = (e) => {
         lastName: lastName.value,
         pin: pin.value,
     }
-    
     axios.post(`http://localhost:5000/user/create`, formData)
                 .then(
                     (success) => {
@@ -311,8 +310,7 @@ const nextHandler = (e) => {
                     }
                 );
 
-    
 }
-btnPin.addEventListener('click', pinHandler);
-btnNext.addEventListener('click', nextHandler)
+btnNext.addEventListener('click', nextHandler);
+// btnPin.addEventListener('click', pinHandler);
 
