@@ -291,7 +291,7 @@ const nextHandler = (e) => {
     pin: pin.value,
   };
   axios
-    .post(`${BASE_URL}/user/create`, formData)
+    .post(`${BASE_URL}user/create`, formData)
     .then((success) => {
       if (success.data.status === 1) {
         console.log("user added successfully");
