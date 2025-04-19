@@ -1,5 +1,6 @@
 "use strict";
-const BASE_URL = import.meta.env.VITE_BACKEND_URL;
+// const BASE_URL = import.meta.env.VITE_BACKEND_URL;
+const BASE_URL = window.BASE_URL;
 // DOM elements
 const header = document.querySelector(".header");
 const btnScrollTo = document.querySelector(".btn--scroll-to");
