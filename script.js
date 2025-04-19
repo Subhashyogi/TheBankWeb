@@ -1,5 +1,5 @@
 "use strict";
-
+const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 // DOM elements
 const header = document.querySelector(".header");
 const btnScrollTo = document.querySelector(".btn--scroll-to");
@@ -290,7 +290,7 @@ const nextHandler = (e) => {
     pin: pin.value,
   };
   axios
-    .post(`http://localhost:5000/user/create`, formData)
+    .post(`${BASE_URL}/user/create`, formData)
     .then((success) => {
       if (success.data.status === 1) {
         console.log("user added successfully");
