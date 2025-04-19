@@ -1,23 +1,23 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const UserRouter = require('../Backend/Routers/UserRouters');
-
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const UserRouter = require("../Backend/Routers/UserRouters");
+require("dotenv").config();
+const port = process.env.PORT;
+const MONGOuri = process.env.MONGO_URI;
 const app = express();
-app.use(cors())
+app.use(cors());
 app.use(express.json());
-app.use('/user', UserRouter)
+app.use("/user", UserRouter);
 
-mongoose.connect("mongodb://localhost:27017/", {
-    dbName:'Bank'
-}).then((sucess) => {
-    console.log('connected to DB');
-    app.listen(5000, () => {
-      console.log("listening on port 5000");
+mongoose
+  .connect(MONGOuri)
+  .then((sucess) => {
+    console.log("connected to DB");
+    app.listen(port || 4000, () => {
+      console.log("listening on port ", port);
     });
-})
-.catch((error) => {
-    console.log('Unable to connect to db');
-})
-
-
+  })
+  .catch((error) => {
+    console.log("Unable to connect to db", error.message);
+  });

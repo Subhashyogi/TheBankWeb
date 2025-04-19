@@ -1,4 +1,4 @@
-const UserModel = require('../Models/UserModel');
+const UserModel = require("../Models/UserModel");
 
 class UserController {
   create(data) {
@@ -8,7 +8,7 @@ class UserController {
           firstName: data.firstName,
           lastName: data.lastName,
           pin: data.pin,
-          transiction: data?.transictions,
+          Transictions: data?.transictions,
           TransictionsDates: data?.TransictionsDates,
           interestRate: "6.7",
         });
@@ -21,13 +21,22 @@ class UserController {
               status: 1,
             });
           })
-          .catch(() => {
+          .catch((err) => {
+            console.log(err.message);
             res({
               msg: "Unable to add user",
               status: 0,
+              error: err.message,
             });
           });
-      } catch {}
+      } catch (err) {
+        console.log(err.message);
+        rej({
+          msg: "Internal server error",
+          status: 0,
+          error: err.message,
+        });
+      }
     });
   }
   read(id) {
@@ -89,33 +98,28 @@ class UserController {
   async request_loan(id, req) {
     return new Promise(async (res, rej) => {
       try {
-        
         const { fromUserId, amount, date } = req;
-        const user = await UserModel.findById(id); 
-        console.log(user);// this is the recipient
+        const user = await UserModel.findById(id);
+        console.log(user); // this is the recipient
         const sender = await UserModel.findById(fromUserId); // this is the sender
         if (!sender || !user)
-          return res({ 
-        msg: "User not found",
-        status:0, 
-      });
-     
+          return res({
+            msg: "User not found",
+            status: 0,
+          });
+
         user.loanRequests.push({
           fromUserId: sender._id,
           fromUserName: sender.firstName,
           amount,
           date,
-        })
-      user.save()
-      .then(
-        (sucess) =>{
+        });
+        user.save().then((sucess) => {
           res({
             msg: "Loan request added",
             status: 1,
           });
-        }  
-      )
-        
+        });
       } catch (err) {
         res({
           msg: "Failed to request loan",
@@ -129,28 +133,27 @@ class UserController {
     return new Promise(async (res, rej) => {
       try {
         const { fromUserId, amount, date } = req;
-        
-            const user = await UserModel.findById(id);
-             user.loanRequests = user.loanRequests.filter(
-               (r) =>
-                 !(
-                   r.fromUserId === fromUserId &&
-                   r.amount === amount &&
-                   r.date === date
-                 )
-             );
-            
-            await user.save();
-        
-            res({ 
-              msg: "Request cleared",
-              status:1, 
-            });
-      } catch {
-        res({ msg: "Failed to clear loan request", status:0,});
-      }
 
-    })
+        const user = await UserModel.findById(id);
+        user.loanRequests = user.loanRequests.filter(
+          (r) =>
+            !(
+              r.fromUserId === fromUserId &&
+              r.amount === amount &&
+              r.date === date
+            )
+        );
+
+        await user.save();
+
+        res({
+          msg: "Request cleared",
+          status: 1,
+        });
+      } catch {
+        res({ msg: "Failed to clear loan request", status: 0 });
+      }
+    });
   }
 
   closeAccount(id) {
@@ -177,8 +180,6 @@ class UserController {
       }
     });
   }
-}    
+}
 
-
-
-module.exports = UserController
+module.exports = UserController;
